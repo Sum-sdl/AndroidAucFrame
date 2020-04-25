@@ -1,0 +1,80 @@
+//自定义任务
+task helloTask {
+    println("helloTask start")
+    doLast {
+        println("task do last！！")
+    }
+    doFirst {
+        println("task do first！！")
+    }
+    //打印最后一行返回
+    def a = method1 1, 2
+    println "method1 return-->" + a
+
+    println("helloTask finish")
+}
+
+//定义函数，无return 默认最后一行返回
+static def method1(int a, int b) {
+    a + b
+}
+
+//自定义的空任务
+task helloTask2
+
+//自定义任务
+task("Hell1"){
+    println "Hello 1"
+}
+
+//自定义闭包任务
+task helloClosure {
+    println("closure start")
+    customEach({
+        println("it->${it}")
+    })
+
+    //map遍历
+    customMap { k, v ->
+        println(k + ":" + v)
+    }
+}
+
+static def customEach(close) {
+    for (int i in 1..2) {
+        close(i)
+    }
+}
+
+static def customMap(cl) {
+    def map = ["name": "张三", "age": 18]
+    map.each {
+        cl(it.key, it.value)
+    }
+}
+
+
+//task helloDelegate {
+//    //闭包委托
+//    new Delegate().test { k, v, e ->
+//        println "start test"
+//        println "thisObject:${thisObject.getClass()}"
+//        println "owner:${owner.getClass()}"
+//        println "delegate:${delegate.getClass()}"
+//        println "this:${this.getClass()}"
+//        k.method3()
+//    }
+//    println "helloDelegate finish"
+//    println project.hasProperty('helloDelegate')
+//}
+//helloDelegate.enabled(false)
+
+class Delegate {
+    def method3() {
+        println "Delegate this:${this.getClass()} in Delegate"
+    }
+
+    def test(Closure<Delegate> closure) {
+        closure(this, 2, 7)
+    }
+}

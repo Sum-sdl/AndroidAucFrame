@@ -1,2 +1,2 @@
-rootProject.name='GradleTest'
+rootProject.name='GradleFrame'
 include ':app'
