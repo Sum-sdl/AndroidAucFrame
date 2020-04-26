@@ -1,5 +1,7 @@
 //apply plugin: "java"
 
+apply from:"fileOp.gradle"
+
 //默认任务
 defaultTasks("t1", "lazy")
 
@@ -86,7 +88,6 @@ ext {
 
 //task stop 操作
 task b111 {
-    println "b1 do task"
     doLast {
         println "b1 do last"
     }

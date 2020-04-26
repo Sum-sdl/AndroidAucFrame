@@ -1,0 +1,39 @@
+apply plugin: "java"
+
+//遍历文件夹
+task ft {
+    doLast {
+        FileTree tree = fileTree("filetest")
+        tree.each {
+            println "file name-> $it.name"
+        }
+    }
+}
+
+////压缩文件
+//task zf(type: Zip) {
+//
+//    from "filetest"
+//    destinationDir file("filetest/zp")
+//    rename {
+//        "zp.Zip"
+//    }
+//    doLast {
+//        delete "filetest/cp"
+//    }
+//
+//}
+
+
+//copy文件
+task cp {
+    doLast {
+        copy {
+            println "cp start"
+            from "filetest"
+            into "filetest/cp"
+            println "cp finish"
+        }
+    }
+}
+
