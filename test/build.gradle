@@ -92,7 +92,7 @@ task b111 {
     }
 }
 b111.doFirst {
-    println "b1 do first"
+    println "b1 do first ->${reslutA}"
     if (k1) {
         throw new StopExecutionException("hhhh")
     }
