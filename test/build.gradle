@@ -1,0 +1,106 @@
+//apply plugin: "java"
+
+//默认任务
+defaultTasks("t1", "lazy")
+
+task t1 {
+    ext.key1 = "ke1 value"
+    doLast {
+        println "t1 do last"
+    }
+}
+
+//依赖任务
+task dep(dependsOn: t1) {
+    doLast {
+        println "dep task last"
+    }
+    dependsOn "lazy"
+}
+
+task lazy {
+    doLast {
+        println "lazy task do"
+    }
+}
+
+//动态创建任务 gradle task1
+4.times { count ->
+    task "task${count}" {
+        doLast {
+            println "task do ${count} ${task0.name}; "
+        }
+    }
+}
+
+task0.dependsOn task1, task3
+
+task pro {
+    ext.key = "pro value"
+    doLast {
+        println "pro task -> $t1.key1,$pro.key"
+    }
+}
+
+//根据任务执行不同输出
+task cBuild {
+    doLast {
+        println "we build with version ${version}"
+    }
+}
+
+task release {
+    dependsOn("cBuild")
+    doLast {
+        println "release build finish"
+    }
+}
+//通过gradle执行单个任务，准备完成，开始执行时
+gradle.taskGraph.whenReady {
+    println("task->$it")
+    if (it.hasTask(release)) {
+        version = "1.0"
+    } else {
+        version = "1.0-SNAPOST11"
+    }
+    //任务状态
+    if (it.hasTask(b2)) {
+        k1 = true
+    } else {
+        k1 = false
+    }
+    println("it has b2 task:${it.hasTask(b2)}")
+    println("b1 task need stop:" + k1)
+}
+
+//copy操作
+task myCopy(type: Copy) {
+    doLast {
+        println "do copy"
+    }
+}
+
+ext {
+    k1 = true
+}
+
+//task stop 操作
+task b111 {
+    println "b1 do task"
+    doLast {
+        println "b1 do last"
+    }
+}
+b111.doFirst {
+    println "b1 do first"
+    if (k1) {
+        throw new StopExecutionException("hhhh")
+    }
+    println "b1 do first2"
+}
+//b2 任务执行，b1只执行了doFirst,具体内部没有执行
+task b2(dependsOn: b111) {
+    doLast {
+        println "b1 not work"
+    }
+}
