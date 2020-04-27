@@ -32,7 +32,39 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-task customBuild() {
-    println("task build start>>>>>")
-    println("task build finish<<<<<")
+task beforeAndroid {
+    group("MyTask")
+
+    //任务的自定义属性
+    ext.good = true
+
+    doFirst {
+        println("beforeAndroid do first")
+    }
+    doLast {
+        println("beforeAndroid do last")
+    }
+}
+
+//定义分组
+task myTask1(group: "MyTask", description: "task1") {
+    println "This is myTask1"
+    doLast {
+        println("myTask1 do last---> $beforeAndroid.good")
+    }
+}
+
+task cusBuild {
+    group("MyTask")
+
+    //任务的自定义属性
+    ext.good = true
+
+    doLast {
+        println("cusBuild do start")
+        exec {
+            commandLine "./gradlew", "assembleDebug"
+        }
+        println("cusBuild do finish")
+    }
 }
