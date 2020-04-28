@@ -1,5 +1,6 @@
 package com.example.gradletest
 
+import android.content.Intent
 import android.os.Bundle
 import android.transition.TransitionManager
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.gradletest.databinding.ActivityMainBinding
+import com.example.salebill.cart.CartActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         binding.button3.setOnClickListener {
 
             animateToKeyframeTwo()
+        }
+
+
+        binding.button4.setOnClickListener {
+            val intent = Intent(MainActivity@this, CartActivity::class.java)
+            startActivity(intent)
         }
 
     }

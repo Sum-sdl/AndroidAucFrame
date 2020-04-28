@@ -1,2 +1,4 @@
 rootProject.name='GradleFrame'
 include ':app'
+include ':group:saleBill'
+include ':group:goods'

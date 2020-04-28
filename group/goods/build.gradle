@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -7,17 +7,13 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.gradletest"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        viewBinding {
-            enabled = true
-        }
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -26,7 +22,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        def dirs = ['main', 'p_browser', 'p_download']
 
+        main {
+            manifest.srcFile 'main/src/main/AndroidManifest.xml'
+            dirs.each { dir ->
+                java.srcDir("${dir}/src/main/java")
+                res.srcDir("${dir}/src/main/res")
+            }
+        }
+    }
 }
 
 dependencies {
@@ -34,11 +40,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
-//    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation project(path: ':group:saleBill')
 }

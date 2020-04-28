@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -7,17 +7,13 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.gradletest"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        viewBinding {
-            enabled = true
-        }
+        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -25,6 +21,35 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+//    productFlavors {
+//        wm {}
+//        mt {}
+//    }
+
+    sourceSets {
+        def dirs = ['p_goods_detail', 'p_comment', 'p_shopping_cart', 'p_base', 'p_main']
+
+        main {
+            manifest.srcFile 'src/p_comment/main/AndroidManifest.xml'
+            dirs.each { dir ->
+                java.srcDir("src/${dir}/main/java")
+                res.srcDir("src/${dir}/main/res")
+            }
+        }
+//
+//        wm {
+//            dirs.each { dir ->
+//                java.srcDir("src/${dir}/wm/java")
+//                res.srcDir("src/${dir}/wm/res")
+//            }
+//        }
+//        mt {
+//            dirs.each { dir ->
+//                java.srcDir("src/${dir}/mt/java")
+//                res.srcDir("src/${dir}/mt/res")
+//            }
+//        }
     }
 
 }
@@ -34,11 +59,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
-//    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
-
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation project(path: ':group:saleBill')
 }
