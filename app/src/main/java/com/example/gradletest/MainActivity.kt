@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import com.example.gradletest.api.IApiFeature1
+import com.example.gradletest.api.IApiFeature2
 import com.example.gradletest.databinding.ActivityMainBinding
 import com.example.salebill.cart.CartActivity
+import com.zhoupu.router.api.ApiFinder
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,14 +32,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.button3.setOnClickListener {
-
             animateToKeyframeTwo()
         }
 
 
+        //pins 工程测试
         binding.button4.setOnClickListener {
-            val intent = Intent(MainActivity@this, CartActivity::class.java)
+            val intent = Intent(this, CartActivity::class.java)
             startActivity(intent)
+        }
+
+        //Api隔离实现
+        binding.api.setOnClickListener {
+             ApiFinder.findApi(IApiFeature1::class.java).fun1()
+             ApiFinder.findApi(IApiFeature2::class.java).fun1()
         }
 
     }

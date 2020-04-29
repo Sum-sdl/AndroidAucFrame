@@ -28,7 +28,6 @@ allprojects {
 }
 
 task clean(type: Delete) {
-    println("task clean->" + Delete)
     delete rootProject.buildDir
 }
 
@@ -48,7 +47,6 @@ task beforeAndroid {
 
 //定义分组
 task myTask1(group: "MyTask", description: "task1") {
-    println "This is myTask1"
     doLast {
         println("myTask1 do last---> $beforeAndroid.good")
     }
