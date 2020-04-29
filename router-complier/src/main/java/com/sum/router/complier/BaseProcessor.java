@@ -62,22 +62,4 @@ abstract class BaseProcessor extends AbstractProcessor {
         //默认通过注解，设置App和APT的设置的值
         return super.getSupportedOptions();
     }
-
-//以下是手动设置 注解和传参
-//    @Override
-//    public Set<String> getSupportedAnnotationTypes() {
-//        //设置支持的注解
-//        Set<String> set = new LinkedHashSet<>();
-//        set.add(ApiRouter.class.getCanonicalName());
-//        return set;
-//    }
-//
-//    @Override
-//    public Set<String> getSupportedOptions() {
-//        //设置支持的入参
-//        return new HashSet<String>() {{
-//            this.add("MODULE_NAME");
-//        }};
-//    }
-
 }

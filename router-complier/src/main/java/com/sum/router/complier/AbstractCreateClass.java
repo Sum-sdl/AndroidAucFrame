@@ -1,5 +1,6 @@
 package com.sum.router.complier;
 
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.Filer;
@@ -30,9 +31,16 @@ abstract class AbstractCreateClass {
     //初始化环境
     private ProcessingEnvironment mEnv;
 
+    //模块名称
+    protected String mModuleName;
+
     AbstractCreateClass(ProcessingEnvironment environment) {
         mEnv = environment;
         init(environment);
+        //初始化module
+        Map<String, String> options = environment.getOptions();
+        mModuleName = options.get(ProcessorConfig.MODULE_NAME);
+        print("module->" + mModuleName);
     }
 
     private void init(ProcessingEnvironment env) {

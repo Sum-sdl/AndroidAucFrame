@@ -11,6 +11,7 @@ import com.example.gradletest.api.IApiFeature1
 import com.example.gradletest.api.IApiFeature2
 import com.example.gradletest.databinding.ActivityMainBinding
 import com.example.salebill.cart.CartActivity
+import com.example.salebill.comment.IModuleBill
 import com.zhoupu.router.api.ApiFinder
 
 class MainActivity : AppCompatActivity() {
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         binding.api.setOnClickListener {
              ApiFinder.findApi(IApiFeature1::class.java).fun1()
              ApiFinder.findApi(IApiFeature2::class.java).fun1()
+             ApiFinder.findApi(IModuleBill::class.java).update()
         }
 
     }

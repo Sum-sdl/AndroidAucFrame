@@ -36,10 +36,12 @@ class ApiFinderByString extends AbstractCreateClass {
 
     @Override
     boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+//        print("process start1");
         //无注解直接返回
         if (annotations.isEmpty()) {
             return true;
         }
+//        print("process start2");
         //获取所以接口的注解类
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(ApiImpl.class);
         //构建Api的数据源
@@ -118,12 +120,12 @@ class ApiFinderByString extends AbstractCreateClass {
             methodBuilder.addStatement("$N.put($S,$S)", apiMap, entry.getKey(), entry.getValue());
         }
         //  return apiMap;
-        methodBuilder.addStatement("return $N",apiMap);
+        methodBuilder.addStatement("return $N", apiMap);
 
         //生成类
         //获取接口类型
         TypeElement apiPathElement = elementTool.getTypeElement(ProcessorConfig.I_API_PATH);
-        String finalClassName = ProcessorConfig.API_PATH_FILE_NAME;
+        String finalClassName = mModuleName + "$" + ProcessorConfig.API_PATH_FILE_NAME;
         TypeSpec apiClass = TypeSpec.classBuilder(finalClassName)//类名
                 .addSuperinterface(ClassName.get(apiPathElement))//实现的接口
                 .addModifiers(Modifier.PUBLIC)//类是public修饰

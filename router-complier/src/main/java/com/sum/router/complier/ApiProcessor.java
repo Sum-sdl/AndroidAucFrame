@@ -2,6 +2,7 @@ package com.sum.router.complier;
 
 import com.google.auto.service.AutoService;
 
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.processing.ProcessingEnvironment;
@@ -19,7 +20,7 @@ import javax.lang.model.element.TypeElement;
 //注册APT
 @AutoService(Processor.class)
 //处理的注解
-@SupportedAnnotationTypes({"com.zhoupu.router.annotation.ApiList", "com.zhoupu.router.annotation.ApiImpl"})
+@SupportedAnnotationTypes({"com.zhoupu.router.annotation.ApiImpl"})
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 //处理的自定义参数
 @SupportedOptions({ProcessorConfig.MODULE_NAME})
@@ -31,10 +32,11 @@ public class ApiProcessor extends BaseProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment env) {
         super.init(env);
-//        Map<String, String> options = processingEnv.getOptions();
+//        Map<String, String> options = env.getOptions();
 //        print("module->" + options.get(ProcessorConfig.MODULE_NAME));
         //构造方案生成类
         mClassCreate = new ApiFinderByString(env);
+//        mClassCreate = new ApiFinderByClass(env);
     }
 
     //开始
