@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.sum.api'
 
 android {
     compileSdkVersion 29
@@ -15,11 +16,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [module_name: project.getName()]
-            }
-        }
     }
     lintOptions {
         abortOnError false
@@ -48,9 +44,4 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
-
-
-    //注解
-    implementation project(':router-api')
-    annotationProcessor project(':router-complier')
 }

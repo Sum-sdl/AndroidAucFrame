@@ -1,0 +1,25 @@
+apply plugin: 'groovy'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    google()
+    jcenter()
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+    compileOnly 'com.android.tools.build:gradle:3.6.3'
+}
+
+//ext {
+//    GROUP = 'com.chenenyu.router'
+//    ARTIFACT = 'gradle-plugin'
+//    VERSION = PLUGIN_VERSION
+//    BINTRAY_NAME = 'router-gradle-plugin'
+//}
+
+//apply from: '../gradle/publish.gradle'
+//apply from: 'https://raw.githubusercontent.com/chenenyu/gradle-bintray-plugin/master/publish.gradle'

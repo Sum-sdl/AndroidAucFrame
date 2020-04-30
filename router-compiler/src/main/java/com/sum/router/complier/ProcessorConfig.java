@@ -15,5 +15,5 @@ public interface ProcessorConfig {
 
     //Gradle传入的参
     //定义模块名称
-    String MODULE_NAME = "module_name";
+    String MODULE_NAME = "moduleName";
 }

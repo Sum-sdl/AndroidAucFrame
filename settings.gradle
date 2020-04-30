@@ -1,5 +1,6 @@
-rootProject.name='GradleFrame'
+rootProject.name = 'GradleFrame'
 include ':app'
 include ':group:saleBill'
 include ':group:goods'
-include ':router-api',':router-complier',':router-annotation'
+include ':router-api', ':router-compiler', ':router-annotation'
+include ':buildSrc', ':gradle-plugin'
