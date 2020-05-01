@@ -1,7 +1,14 @@
 package com.example.goods;
 
+import com.zhoupu.router.annotation.ApiImpl;
+
 /**
  * Created by sdl on 2020/4/28
  */
-public class browser {
+@ApiImpl
+class browser implements IApiGoodFinder {
+    @Override
+    public void print() {
+
+    }
 }

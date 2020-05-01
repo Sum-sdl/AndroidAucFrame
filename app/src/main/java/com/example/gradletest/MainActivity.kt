@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import com.example.goods.IApiGoodFinder
 import com.example.gradletest.api.IApiFeature1
 import com.example.gradletest.api.IApiFeature2
 import com.example.gradletest.databinding.ActivityMainBinding
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
              ApiFinder.findApi(IApiFeature1::class.java).fun1()
              ApiFinder.findApi(IApiFeature2::class.java).fun1()
              ApiFinder.findApi(IModuleBill::class.java).update()
+             ApiFinder.findApi(IApiGoodFinder::class.java).print()
         }
 
     }
