@@ -9,7 +9,7 @@ dependencies {
     //需要处理的自定义注解
     implementation project(':router-api')
     //java对象生成库
-    implementation 'com.squareup:javapoet:1.10.0'
+    implementation 'com.squareup:javapoet:1.12.1'
 }
 
 tasks.withType(JavaCompile){

@@ -1,5 +1,7 @@
 package com.example.goods;
 
+import android.util.Log;
+
 import com.zhoupu.router.annotation.ApiImpl;
 
 /**
@@ -9,6 +11,6 @@ import com.zhoupu.router.annotation.ApiImpl;
 class browser implements IApiGoodFinder {
     @Override
     public void print() {
-
+        Log.e("main", "browser print " + toString());
     }
 }

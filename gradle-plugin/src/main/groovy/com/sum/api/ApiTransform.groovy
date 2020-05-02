@@ -21,16 +21,19 @@ class ApiTransform extends Transform {
     //文件包名
     private static final String API_FILE_PATCH = "com.zhoupu.api.processor.apt"
 
+    //需要修改的文件地址
+    public static File apiFinderFile = null
+
     //文件路径
     private static final String API_FILE_PATCH_DIR = API_FILE_PATCH.replace(".", File.separator)
 
     //忽略的jar包
     private static final Set<String> excludeJar = ["com.android.support", "android.arch.", "androidx."]
 
-    Project project
+    private Project project
 
     //class文件路径
-    Set<String> initClasses
+    private Set<String> initClasses
 
     ApiTransform(Project project) {
         this.project = project
@@ -88,57 +91,13 @@ class ApiTransform extends Transform {
                 }
             }
         }
-        //找到的所有Api接口实现类
-        initClasses.each {
-            printLog(it)
+        //initClasses 找到的所有Api接口实现类
+        if (!initClasses.isEmpty() && apiFinderFile != null) {
+            //修改ApiFinder.class
+            ApiModifyHelper.handle(initClasses)
         }
-
         printLog("--------------api transform finish -------------- time:" + (System.currentTimeMillis() - startTime))
     }
-
-    void handleJar(JarInput jarInput, TransformOutputProvider outputProvider) throws IOException {
-//        printLog("handleJar->" + jarInput.file.absolutePath + ",size:" + jarInput.file.size() + ",name:" + jarInput.name)
-        //需要扫码的jar包
-        if (shouldScanJar(jarInput)) {
-            JarFile jarFile = new JarFile(jarInput.file)
-            jarFile.entries().each {
-                def fileName = it.name
-                if (checkClass(fileName)) {
-                    if (fileName.endsWith(SdkConstants.DOT_CLASS) && fileName.startsWith(API_FILE_PATCH_DIR)) {
-                        String className = trimName(fileName, 0).replace(File.separator, '.')
-                        initClasses.add(className)
-                        printLog("handleJar->" + className)
-                    }
-                }
-            }
-        }
-        //将任务抛给下一个transform
-        File dsf = getJarDestFile(outputProvider, jarInput)
-        FileUtils.copyFile(jarInput.file, dsf)
-    }
-
-    //过滤不需要扫码的jar文件
-    static boolean shouldScanJar(JarInput jarInput) {
-        excludeJar.each {
-            if (jarInput.name.contains(it))
-                return false
-        }
-        return true
-    }
-
-    //生成下文件的文件名
-    static File getJarDestFile(TransformOutputProvider outputProvider, JarInput jarInput) {
-        String destName = jarInput.name
-        if (destName.endsWith(".jar")) { // local jar
-            // rename to avoid the same name, such as classes.jar
-            String hexName = DigestUtils.md5Hex(jarInput.file.absolutePath)
-            destName = "${destName.substring(0, destName.length() - 4)}_${hexName}"
-        }
-        File destFile = outputProvider.getContentLocation(
-                destName, jarInput.contentTypes, jarInput.scopes, Format.JAR)
-        return destFile
-    }
-
 
     //处理文件夹里面的class
     void handleDirectory(DirectoryInput directoryInput, TransformOutputProvider outputProvider) throws IOException {
@@ -163,6 +122,55 @@ class ApiTransform extends Transform {
         def dsf = outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY)
         //将input的目录复制到output目录
         FileUtils.copyDirectory(directoryInput.file, dsf)
+    }
+
+    //处理模块中的class
+    void handleJar(JarInput jarInput, TransformOutputProvider outputProvider) throws IOException {
+//        printLog("handleJar->" + jarInput.file.absolutePath + ",size:" + jarInput.file.size() + ",name:" + jarInput.name)
+        //生成目标文件路径
+        File dsf = getJarDestFile(outputProvider, jarInput)
+        //需要扫码的jar包
+        if (shouldScanJar(jarInput)) {
+            JarFile jarFile = new JarFile(jarInput.file)
+            jarFile.entries().each {
+                def fileName = it.name
+                if (checkClass(fileName)) {
+//                    printLog(fileName)
+                    if (fileName.endsWith(SdkConstants.DOT_CLASS) && fileName.startsWith(API_FILE_PATCH_DIR)) {
+                        String className = trimName(fileName, 0).replace(File.separator, '.')
+                        initClasses.add(className)
+                        printLog("handleJar->" + className)
+                    } else if (fileName == ApiModifyHelper.API_FINDER_CLASS_PATH) {
+                        printLog("ApiFinder->" + dsf.absolutePath)
+                        apiFinderFile = dsf
+                    }
+                }
+            }
+        }
+        //将任务抛给下一个transform
+        FileUtils.copyFile(jarInput.file, dsf)
+    }
+
+    //过滤不需要扫码的jar文件
+    static boolean shouldScanJar(JarInput jarInput) {
+        excludeJar.each {
+            if (jarInput.name.contains(it))
+                return false
+        }
+        return true
+    }
+
+    //生成下个文件的文件名
+    static File getJarDestFile(TransformOutputProvider outputProvider, JarInput jarInput) {
+        String destName = jarInput.name
+        if (destName.endsWith(".jar")) { // local jar
+            // rename to avoid the same name, such as classes.jar
+            String hexName = DigestUtils.md5Hex(jarInput.file.absolutePath)
+            destName = "${destName.substring(0, destName.length() - 4)}_${hexName}"
+        }
+        File destFile = outputProvider.getContentLocation(
+                destName, jarInput.contentTypes, jarInput.scopes, Format.JAR)
+        return destFile
     }
 
     //截取类路径
