@@ -5,7 +5,7 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeSpec;
-import com.zhoupu.router.annotation.ApiImpl;
+import com.zp.apt.annotation.ApiImpl;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -79,7 +79,7 @@ class ApiFinderByString extends AbstractCreateClass {
             }
             //节点的全路径
             allApiImpl.put(implApi, typeElement.getQualifiedName().toString());
-            print("接口->" + implApi + " 实现类->" + allApiImpl.get(implApi));
+//            print("接口->" + implApi + " 实现类->" + allApiImpl.get(implApi));
         }
         //生成IApiPath接口Java实现类
         try {

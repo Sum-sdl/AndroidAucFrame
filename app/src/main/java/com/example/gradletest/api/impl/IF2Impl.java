@@ -3,7 +3,7 @@ package com.example.gradletest.api.impl;
 import android.util.Log;
 
 import com.example.gradletest.api.IApiFeature2;
-import com.zhoupu.router.annotation.ApiImpl;
+import com.zp.apt.annotation.ApiImpl;
 
 /**
  * Created by sdl on 2020/4/29

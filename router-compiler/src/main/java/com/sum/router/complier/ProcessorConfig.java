@@ -6,10 +6,10 @@ package com.sum.router.complier;
 public interface ProcessorConfig {
 
     //生成路由文件的包名
-    String PACKAGE_NAME = "com.zhoupu.api.processor.apt";
+    String PACKAGE_NAME = "com.zp.apt.api.impl";
 
-    //接口路径
-    String I_API_PATH = "com.zhoupu.router.api.IApiPath";
+    //自定义生成类的接口路径
+    String I_API_PATH = "com.zp.apt.api.IApiPath";
     //自动生成的文件名称
     String API_PATH_FILE_NAME = "ApiPathMapImpl";
 

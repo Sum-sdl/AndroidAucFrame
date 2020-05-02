@@ -20,7 +20,7 @@ import javax.lang.model.element.TypeElement;
 //注册APT
 @AutoService(Processor.class)
 //处理的注解
-@SupportedAnnotationTypes({"com.zhoupu.router.annotation.ApiImpl"})
+@SupportedAnnotationTypes({"com.zp.apt.annotation.ApiImpl"})
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
 //处理的自定义参数
 @SupportedOptions({ProcessorConfig.MODULE_NAME})
