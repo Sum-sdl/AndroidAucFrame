@@ -108,30 +108,25 @@ class ApiModifyHelper {
          *         mAllApiClass.add("bbb.class");
          *}<br>
          *    ASM Code
-         *
          * <br>
-         *             methodVisitor.visitFieldInsn(GETSTATIC, "com/chenenyu/router/module/Hello", "mAllApiClass", "Ljava/util/ArrayList;");
-         *             methodVisitor.visitLdcInsn("xxxx");
-         *             methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/ArrayList", "add", "(Ljava/lang/Object;)Z", false);
-         *             methodVisitor.visitInsn(POP);
-         *
-         *             methodVisitor.visitFieldInsn(GETSTATIC, "com/chenenyu/router/module/Hello", "mAllApiClass", "Ljava/util/ArrayList;");
-         *             methodVisitor.visitLdcInsn("xxxx");
-         *             methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/ArrayList", "add", "(Ljava/lang/Object;)Z", false);
-         *             methodVisitor.visitInsn(POP);
-         *
-         *             methodVisitor.visitFieldInsn(GETSTATIC, "com/chenenyu/router/module/Hello", "mAllApiClass", "Ljava/util/ArrayList;");
-         *             methodVisitor.visitLdcInsn("xxxx");
-         *             methodVisitor.visitMethodInsn(INVOKEVIRTUAL, "java/util/ArrayList", "add", "(Ljava/lang/Object;)Z", false);
-         *             methodVisitor.visitInsn(POP);
-         *
+         *  mv.visitLdcInsn("xxxx");
+         *  mv.visitFieldInsn(GETSTATIC, "com/chenenyu/router/module/Hello", "mAllApiClass", "Ljava/util/ArrayList;");
+         *  mv.visitMethodInsn(INVOKEVIRTUAL, "java/util/ArrayList", "add", "(Ljava/lang/Object;)Z", false);
+         *  mv.visitInsn(POP);
+         *  mv.visitFieldInsn(GETSTATIC, "com/chenenyu/router/module/Hello", "mAllApiClass", "Ljava/util/ArrayList;");
+         *  mv.visitLdcInsn("xxxx");
+         *  mv.visitMethodInsn(INVOKEVIRTUAL, "java/util/ArrayList", "add", "(Ljava/lang/Object;)Z", false);
+         *  mv.visitInsn(POP);
+         *  mv.visitFieldInsn(GETSTATIC, "com/chenenyu/router/module/Hello", "mAllApiClass", "Ljava/util/ArrayList;");
+         *  mv.visitLdcInsn("xxxx");
+         *  mv.visitMethodInsn(INVOKEVIRTUAL, "java/util/ArrayList", "add", "(Ljava/lang/Object;)Z", false);
+         *  mv.visitInsn(POP);
          * <br>
          * */
 
         @Override
         void visitInsn(int opcode) {
             //在方法后插入代码
-            //com/zhoupu/router/api/ApiFinder
             if (opcode == Opcodes.RETURN) {
                 mApiClass.each {
                     mv.visitFieldInsn(Opcodes.GETSTATIC, API_FINDER_CLASS, "mAllApiClass", "Ljava/util/ArrayList;")

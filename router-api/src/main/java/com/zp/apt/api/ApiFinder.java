@@ -10,7 +10,7 @@ import java.util.HashMap;
  */
 public class ApiFinder {
 
-    private static ApiFinder router = new ApiFinder();
+    private static final ApiFinder router = new ApiFinder();
 
     //接口实现的缓存集合类
     private HashMap<String, Object> apiImplMap = new HashMap<>();

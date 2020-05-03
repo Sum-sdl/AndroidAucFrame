@@ -52,9 +52,9 @@ class ApiFinderByClass extends AbstractCreateClass {
             }
             TypeElement typeElement = (TypeElement) element;
             //获取注解类似
-            ApiImpl api = typeElement.getAnnotation(ApiImpl.class);
+//            ApiImpl api = typeElement.getAnnotation(ApiImpl.class);
             //手动定义接口Api的别名
-            String value = api.value();
+//            String value = api.value();
             //返回当前类的父类
 //            TypeMirror superclass = typeElement.getSuperclass();
 //            print("getSuperclass->" + superclass.toString());
@@ -66,10 +66,10 @@ class ApiFinderByClass extends AbstractCreateClass {
             }
             //实现的接口名称
             String implApi = interfaces.get(0).toString();
-            //自定义接口实现类
-            if (value.length() > 0) {
-                implApi = value;
-            }
+//            //自定义接口实现类
+//            if (value.length() > 0) {
+//                implApi = value;
+//            }
             //已经存在一个实现类了
             if (allApiImpl.containsKey(implApi)) {
                 printError(implApi + " 已存在实现类:" + allApiImpl.get(implApi));

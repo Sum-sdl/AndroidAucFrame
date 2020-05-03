@@ -28,16 +28,16 @@ class ApiPlugin implements Plugin<Project> {
         def isKotlinProject = project.plugins.hasPlugin('kotlin-android')
         if (isKotlinProject) {
             if (!project.plugins.hasPlugin('kotlin-kapt')) {
-//                project.plugins.apply('kotlin-kapt')
+                project.plugins.apply('kotlin-kapt')
             }
         }
 
         //依赖方式
         String compileConf = 'implementation'
         String aptConf = 'annotationProcessor'
-//        if (isKotlinProject) {
-//            aptConf = 'kapt'
-//        }
+        if (isKotlinProject) {
+            aptConf = 'kapt'
+        }
 
         // Add dependencies
         Project routerProject = project.rootProject.findProject("router-api")
