@@ -17,7 +17,7 @@ class ApiPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        println("project name->" + project.name)
+//        println("project name->" + project.name)
         //编译阶段
         //可以使用的工程类型
         if (!project.plugins.hasPlugin(AppPlugin)                                // AppPlugin

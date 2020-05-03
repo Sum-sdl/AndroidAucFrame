@@ -14,12 +14,14 @@ dependencies {
     compileOnly 'com.android.tools.build:gradle:3.6.3'
 }
 
-//ext {
-//    GROUP = 'com.chenenyu.router'
-//    ARTIFACT = 'gradle-plugin'
-//    VERSION = PLUGIN_VERSION
-//    BINTRAY_NAME = 'router-gradle-plugin'
-//}
+ext {
+    bintrayName = 'api-gradle-plugin'
+    artifact = bintrayName
+    libraryName = 'api gradle plugin'
+    libraryDescription = 'plugin'
+    libraryVersion = api_pulgin_version
+}
 
-//apply from: '../gradle/publish.gradle'
+apply from: '../up_install.gradle'
+apply from: '../up_bintray.gradle'
 //apply from: 'https://raw.githubusercontent.com/chenenyu/gradle-bintray-plugin/master/publish.gradle'
