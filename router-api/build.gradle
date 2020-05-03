@@ -1,8 +1,20 @@
 apply plugin: 'java-library'
 
+ext {
+    bintrayName = 'api'
+    artifact = bintrayName
+    libraryName = 'api finder class'
+    libraryDescription = 'ApiFinder'
+    libraryVersion = '1.0.0'
+}
+
+
 dependencies {
     api project(':router-annotation')
 }
 
 sourceCompatibility = "7"
 targetCompatibility = "7"
+
+apply from: '../up_install.gradle'
+apply from: '../up_bintray.gradle'

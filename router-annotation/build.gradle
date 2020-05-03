@@ -1,13 +1,5 @@
 apply plugin: 'java-library'
 
-dependencies {
-
-}
-
-sourceCompatibility = "7"
-targetCompatibility = "7"
-
-
 ext {
     bintrayName = 'api-annotation'
     artifact = bintrayName
@@ -15,6 +7,13 @@ ext {
     libraryDescription = 'ApiImpl'
     libraryVersion = '1.0.0'
 }
+
+dependencies {
+
+}
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
 
 
 apply from: '../up_install.gradle'
