@@ -5,6 +5,7 @@ import com.android.build.gradle.LibraryPlugin
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtraPropertiesExtension
 
 /**
  * Created by sdl on 2020/4/30
@@ -46,19 +47,23 @@ class ApiPlugin implements Plugin<Project> {
             project.dependencies.add(compileConf, routerProject)
             project.dependencies.add(aptConf, compilerProject)
         } else {
-            println("需要添加远程依赖")
 //            // org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension
-//            ExtraPropertiesExtension ext = project.rootProject.ext
-//            if (ext.has("routerVersion")) {
-//                DEFAULT_ROUTER_RUNTIME_VERSION = ext.get("routerVersion")
-//            }
-//            if (ext.has("compilerVersion")) {
-//                DEFAULT_ROUTER_COMPILER_VERSION = ext.get("compilerVersion")
-//            }
-//            project.dependencies.add(compileConf,
-//                    "com.chenenyu.router:router:${DEFAULT_ROUTER_RUNTIME_VERSION}")
-//            project.dependencies.add(aptConf,
-//                    "com.chenenyu.router:compiler:${DEFAULT_ROUTER_COMPILER_VERSION}")
+            ExtraPropertiesExtension ext = project.rootProject.ext
+            //依赖的版本 在gradle.properties中配置
+            String apiVersion = "1.0.0"
+            String compilerVersion = "1.0.0"
+            if (ext.has("apiVersion")) {
+                apiVersion = ext.get("apiVersion")
+            }
+            if (ext.has("compilerVersion")) {
+                compilerVersion = ext.get("compilerVersion")
+            }
+            project.dependencies.add(compileConf,
+                    "com.github.Sum-sdl:api:${apiVersion}")
+            project.dependencies.add(compileConf,
+                    "com.github.Sum-sdl:api-annotation:${apiVersion}")
+            project.dependencies.add(aptConf,
+                    "com.github.Sum-sdl:api-compiler:${compilerVersion}")
         }
         //给android属性添加属性
         def android = project.extensions.findByName("android")

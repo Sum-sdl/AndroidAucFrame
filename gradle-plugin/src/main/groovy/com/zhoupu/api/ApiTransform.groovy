@@ -9,6 +9,7 @@ import org.apache.commons.io.IOCase
 import org.apache.commons.io.filefilter.SuffixFileFilter
 import org.apache.commons.io.filefilter.TrueFileFilter
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtraPropertiesExtension
 
 import java.util.concurrent.ConcurrentHashMap
 import java.util.jar.JarFile
@@ -35,8 +36,15 @@ class ApiTransform extends Transform {
     //class文件路径
     private Set<String> initClasses
 
+    //调试模式
+    private boolean mIsDebug = false
+
     ApiTransform(Project project) {
         this.project = project
+        ExtraPropertiesExtension ext = project.rootProject.ext
+        if (ext.has("apiPluginDebug")) {
+            mIsDebug = ext.get("apiPluginDebug")
+        }
     }
 
     @Override
@@ -184,7 +192,9 @@ class ApiTransform extends Transform {
     }
 
     void printLog(String msg) {
-        project.logger.error("ApiTransform->> " + msg)
+        if (mIsDebug) {
+            project.logger.error("ApiTransform->> " + msg)
+        }
     }
 
 }
