@@ -6,3 +6,16 @@ dependencies {
 
 sourceCompatibility = "7"
 targetCompatibility = "7"
+
+
+ext {
+    bintrayName = 'api-annotation'
+    artifact = bintrayName
+    libraryName = 'api annotation'
+    libraryDescription = 'ApiImpl'
+    libraryVersion = '1.0.0'
+}
+
+
+apply from: '../up_install.gradle'
+apply from: '../up_bintray.gradle'
