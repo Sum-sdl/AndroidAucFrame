@@ -41,17 +41,19 @@ class ApiPlugin implements Plugin<Project> {
         }
 
         // Add dependencies
-        Project routerProject = project.rootProject.findProject("router-api")
-        Project compilerProject = project.rootProject.findProject("router-compiler")
-        if (routerProject && compilerProject) { // local
+        Project routerProject = project.rootProject.findProject("api")
+        Project compilerProject = project.rootProject.findProject("api-compiler")
+        Project annotationProject = project.rootProject.findProject("api-annotation")
+        if (routerProject && compilerProject && annotationProject) { // local
             project.dependencies.add(compileConf, routerProject)
+            project.dependencies.add(compileConf, annotationProject)
             project.dependencies.add(aptConf, compilerProject)
         } else {
 //            // org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension
             ExtraPropertiesExtension ext = project.rootProject.ext
             //依赖的版本 在gradle.properties中配置
-            String apiVersion = "1.1.0"
-            String compilerVersion = "1.1.0"
+            String apiVersion = "1.1.1"
+            String compilerVersion = "1.1.1"
             if (ext.has("apiVersion")) {
                 apiVersion = ext.get("apiVersion")
             }

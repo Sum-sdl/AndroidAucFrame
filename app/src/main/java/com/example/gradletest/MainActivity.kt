@@ -46,10 +46,10 @@ class MainActivity : AppCompatActivity() {
 
         //Api隔离实现
         binding.api.setOnClickListener {
-             ApiFinder.findApi(IApiFeature1::class.java).fun1()
-             ApiFinder.findApi(IApiFeature2::class.java).fun1()
-             ApiFinder.findApi(IModuleBill::class.java).update()
-             ApiFinder.findApi(IApiGoodFinder::class.java).print()
+             ApiFinder.get(IApiFeature1::class.java).fun1()
+             ApiFinder.get(IApiFeature2::class.java).fun1()
+             ApiFinder.get(IModuleBill::class.java).update()
+             ApiFinder.get(IApiGoodFinder::class.java).print()
         }
 
     }

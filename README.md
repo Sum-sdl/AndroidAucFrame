@@ -7,7 +7,7 @@
          dependencies {
                 classpath 'com.android.tools.build:gradle:3.6.3'
                 //Api实现依赖倒置框架
-                classpath 'com.github.Sum-sdl:api-gradle-plugin:1.0.0'
+                classpath 'com.github.Sum-sdl:api-gradle-plugin:1.1.0'
             }
     }
 
@@ -38,7 +38,7 @@ class ApiFun implements IApiFun {
 
 //第三步
 //在任意地方调用接口,此处是访问不了具体的实现类的
-ApiFinder.findApi(IApiFun::class.java).toast()
+ApiFinder.get(IApiFun::class.java).toast()
 ```
 
 > **核心解决的问题**
