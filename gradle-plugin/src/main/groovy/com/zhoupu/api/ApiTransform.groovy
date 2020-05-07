@@ -103,6 +103,8 @@ class ApiTransform extends Transform {
         if (!initClasses.isEmpty() && apiFinderFile != null) {
             //修改ApiFinder.class
             ApiModifyHelper.handle(initClasses)
+        } else {
+            printLog("no api impl")
         }
         printLog("--------------api transform finish -------------- time:" + (System.currentTimeMillis() - startTime))
     }
@@ -111,6 +113,7 @@ class ApiTransform extends Transform {
     void handleDirectory(DirectoryInput directoryInput, TransformOutputProvider outputProvider) throws IOException {
 //        printLog("handleDirectory->" + directoryInput.file.absolutePath + ",size:" + directoryInput.file.size())
         if (directoryInput.file.size() == 0) {
+            printLog("directoryInput file size = 0")
             return
         }
         //在目前文件中

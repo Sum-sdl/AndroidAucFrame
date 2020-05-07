@@ -50,8 +50,8 @@ class ApiPlugin implements Plugin<Project> {
 //            // org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension
             ExtraPropertiesExtension ext = project.rootProject.ext
             //依赖的版本 在gradle.properties中配置
-            String apiVersion = "1.0.0"
-            String compilerVersion = "1.0.0"
+            String apiVersion = "1.1.0"
+            String compilerVersion = "1.1.0"
             if (ext.has("apiVersion")) {
                 apiVersion = ext.get("apiVersion")
             }

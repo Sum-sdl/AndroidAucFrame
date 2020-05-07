@@ -33,7 +33,7 @@ public class ApiFinder {
      * @param <T> 返回的接口类型
      * @return 接口的实现类
      */
-    public static <T> T findApi(Class<T> api) {
+    public static <T> T get(Class<T> api) {
         String name = api.getName();
         //缓存的实现类
         HashMap<String, Object> apiImplMap = get().apiImplMap;
