@@ -10,7 +10,6 @@ ext {
 
 
 dependencies {
-    api project(':router-annotation')
 }
 
 sourceCompatibility = "7"
