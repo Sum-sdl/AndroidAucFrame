@@ -114,7 +114,6 @@ class ApiTransform extends Transform {
 //        printLog("handleDirectory->" + directoryInput.file.absolutePath + ",size:" + directoryInput.file.size())
         if (directoryInput.file.size() == 0) {
             printLog("directoryInput file size = 0")
-            return
         }
         //在目前文件中
         File packageDir = new File(directoryInput.file, API_FILE_PATCH_DIR)
