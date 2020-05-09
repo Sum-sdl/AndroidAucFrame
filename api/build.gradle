@@ -5,11 +5,11 @@ ext {
     artifact = bintrayName
     libraryName = 'api finder class'
     libraryDescription = 'ApiFinder'
-    libraryVersion = '1.1.0'
+    libraryVersion = api_version
 }
 
-
 dependencies {
+    api project(':api-annotation')
 }
 
 sourceCompatibility = "7"

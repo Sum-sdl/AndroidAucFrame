@@ -7,7 +7,7 @@
          dependencies {
                 classpath 'com.android.tools.build:gradle:3.6.3'
                 //Api实现依赖倒置框架
-                classpath 'com.github.Sum-sdl:api-gradle-plugin:1.1.1'
+                classpath 'com.github.Sum-sdl:api-gradle-plugin:1.1.2'
             }
     }
 

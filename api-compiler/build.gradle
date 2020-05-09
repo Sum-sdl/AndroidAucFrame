@@ -5,7 +5,7 @@ ext {
     artifact = bintrayName
     libraryName = 'api compiler class'
     libraryDescription = 'compiler'
-    libraryVersion = '1.1.0'
+    libraryVersion = api_version
 }
 
 dependencies {
@@ -15,8 +15,8 @@ dependencies {
     implementation 'com.google.auto:auto-common:0.10'
 
     //需要处理的自定义注解
-    api 'com.github.Sum-sdl:api-annotation:1.1.0'
-//    api project(':router-annotation')
+//    api 'com.github.Sum-sdl:api-annotation:1.1.1'
+    api project(':api-annotation')
 
     //java对象生成库
     implementation 'com.squareup:javapoet:1.12.1'

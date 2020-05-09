@@ -25,18 +25,29 @@ class ApiPlugin implements Plugin<Project> {
         ) {
             throw new GradleException("android plugin required.")
         }
-        //kotlin
-        def isKotlinProject = project.plugins.hasPlugin('kotlin-android')
-        if (isKotlinProject) {
+        //默认没有开启
+        boolean apiPluginOpenKotlinApt = false
+        //kotlin project
+        if (project.plugins.hasPlugin('kotlin-android')) {
+            //gradle.properties中配置
+            ExtraPropertiesExtension ext = project.rootProject.ext
+            if (ext.has("apiPluginOpenKotlinApt")) {
+                apiPluginOpenKotlinApt = ext.get("apiPluginOpenKotlinApt")
+            }
             if (!project.plugins.hasPlugin('kotlin-kapt')) {
-                project.plugins.apply('kotlin-kapt')
+                //开启kotlinApt
+                if (apiPluginOpenKotlinApt) {
+                    project.plugins.apply('kotlin-kapt')
+                }
+            } else {
+                apiPluginOpenKotlinApt = true
             }
         }
 
         //依赖方式
         String compileConf = 'implementation'
         String aptConf = 'annotationProcessor'
-        if (isKotlinProject) {
+        if (apiPluginOpenKotlinApt) {
             aptConf = 'kapt'
         }
 
@@ -50,22 +61,12 @@ class ApiPlugin implements Plugin<Project> {
             project.dependencies.add(aptConf, compilerProject)
         } else {
 //            // org.gradle.api.internal.plugins.DefaultExtraPropertiesExtension
-            ExtraPropertiesExtension ext = project.rootProject.ext
-            //依赖的版本 在gradle.properties中配置
+            //固定的api版本
             String apiVersion = "1.1.1"
             String compilerVersion = "1.1.1"
-            if (ext.has("apiVersion")) {
-                apiVersion = ext.get("apiVersion")
-            }
-            if (ext.has("compilerVersion")) {
-                compilerVersion = ext.get("compilerVersion")
-            }
-            project.dependencies.add(compileConf,
-                    "com.github.Sum-sdl:api:${apiVersion}")
-            project.dependencies.add(compileConf,
-                    "com.github.Sum-sdl:api-annotation:${apiVersion}")
-            project.dependencies.add(aptConf,
-                    "com.github.Sum-sdl:api-compiler:${compilerVersion}")
+            project.dependencies.add(compileConf, "com.github.Sum-sdl:api:${apiVersion}")
+            project.dependencies.add(compileConf, "com.github.Sum-sdl:api-annotation:${apiVersion}")
+            project.dependencies.add(aptConf, "com.github.Sum-sdl:api-compiler:${compilerVersion}")
         }
         //给android属性添加属性
         def android = project.extensions.findByName("android")
